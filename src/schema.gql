@@ -1,0 +1,96 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Address {
+  city: String!
+  contact: Contact!
+  country: String!
+  id: ID!
+  streetNumber: String!
+  zip: String!
+}
+
+type Contact {
+  address: Address
+  firstName: String!
+  id: ID!
+  lastName: String
+  nickName: String
+  phoneNumbers: [PhoneNumber!]!
+  photo: Photo
+}
+
+input CreateAddressDto {
+  city: String!
+  country: String!
+  streetNumber: String!
+  zip: String!
+}
+
+input CreateContactDto {
+  address: CreateAddressDto
+  firstName: String!
+  lastName: String
+  nickName: String
+  pNumber: [CreatePhoneNumberDto!]!
+  photo: CreatePhotoDto
+}
+
+input CreatePhoneNumberDto {
+  PhoneNumber: String!
+}
+
+input CreatePhotoDto {
+  publicId: String!
+  url: String!
+}
+
+type Mutation {
+  addPhoneNumbers(contactId: Int!, phoneNumbers: [CreatePhoneNumberDto!]!): [PhoneNumber!]!
+  createContact(createDto: CreateContactDto!): Contact!
+  deleteContact(contactId: Int!): Float!
+  deletePhoneNumber(contactId: Int!, numberId: Int!): Float!
+  updateContact(updateDto: UpdateContactDto!): Contact!
+}
+
+type PhoneNumber {
+  PhoneNumber: String!
+  contact: Contact!
+  id: ID!
+}
+
+type Photo {
+  contact: Contact!
+  id: ID!
+  publicId: String!
+  url: String!
+}
+
+type Query {
+  getAll: [Contact!]!
+  getContactById(id: Int!): Contact!
+  search(searchTerm: String!): [Contact!]!
+}
+
+input UpdateAddressDto {
+  city: String!
+  country: String!
+  id: Int!
+  streetNumber: String!
+  zip: String!
+}
+
+input UpdateContactDto {
+  PhoneNumber: [UpdatePhoneNumberDto!]
+  address: UpdateAddressDto
+  firstName: String!
+  id: Int!
+  lastName: String
+  nickName: String
+}
+
+input UpdatePhoneNumberDto {
+  PhoneNumber: String!
+  id: Int!
+}
